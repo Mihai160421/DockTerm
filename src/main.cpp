@@ -1,5 +1,7 @@
-#include <iostream>
+#include "Application/Application.hpp"
 
 int main(int, char**){
-    std::cout << "Hello, from DockTerm!\n";
+    Application app;
+    app.run();
+    return 0;
 }
