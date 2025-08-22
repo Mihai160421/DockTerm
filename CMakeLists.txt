@@ -11,9 +11,11 @@ file(GLOB IMGUI_SOURCES
     external/imgui/backends/imgui_impl_opengl3.cpp
 )
 
+
 add_executable(DockTerm ${SRC_FILES} ${IMGUI_SOURCES})
 
 target_include_directories(DockTerm PRIVATE external/imgui/ external/imgui/backends)
+target_include_directories(DockTerm PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 #Link Libraries
 
