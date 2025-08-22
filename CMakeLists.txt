@@ -28,3 +28,10 @@ elseif(UNIX)
     find_package(OpenGL REQUIRED)
     target_link_libraries(DockTerm PRIVATE OpenGL::GL)
 endif()
+
+# Copy assets folder to output directory after build
+add_custom_command(TARGET DockTerm POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "${CMAKE_SOURCE_DIR}/assets"
+    "$<TARGET_FILE_DIR:DockTerm>/assets"
+)
