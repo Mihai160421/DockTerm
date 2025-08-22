@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Window/Window.hpp" // Todo fix this relative path include
+#include "Window/Window.hpp"
 
 class Application {
 public:
@@ -17,4 +17,5 @@ private:
     void cleanup();
 
     void render();
+    void RenderMenuBar();
 };

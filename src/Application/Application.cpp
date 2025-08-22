@@ -94,6 +94,44 @@ void Application::cleanup() {
     glfwTerminate();
 }
 
+void Application::RenderMenuBar()
+{
+    if (ImGui::BeginMainMenuBar())
+    {
+        if (ImGui::BeginMenu("File"))
+        {
+            if (ImGui::MenuItem("New")) {
+                // TODO
+            }
+            ImGui::Separator();
+            if (ImGui::MenuItem("Exit", "Alt+F4")) {
+                this->mainWindow->setShouldClose(true);
+            }
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu("Help"))
+        {
+            if (ImGui::MenuItem("About")) {
+                // TODO
+            }
+            ImGui::EndMenu();
+        }
+
+
+        if (ImGui::BeginMenu("Debug"))
+        {
+            if (ImGui::MenuItem("SpawnTerminalView")) {
+                // TODO
+            }
+            ImGui::EndMenu();
+        }
+
+        ImGui::EndMainMenuBar();
+    }
+
+}
+
 void Application::render() {
-    // This function can be used to encapsulate rendering logic if needed
+    RenderMenuBar();
 }

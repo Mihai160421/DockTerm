@@ -12,4 +12,6 @@ public:
     const char * getGlslVersion() const { return "#version 130"; }
 
     bool shouldClose() const { return glfwWindowShouldClose(window); }
+
+    void setShouldClose(bool value) { glfwSetWindowShouldClose(window, value); }
 };
