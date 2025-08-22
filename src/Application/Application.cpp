@@ -113,7 +113,6 @@ void Application::RenderMenuBar()
         if (ImGui::BeginMenu("Help"))
         {
             if (ImGui::MenuItem("About")) {
-                // TODO
             }
             ImGui::EndMenu();
         }
@@ -122,7 +121,10 @@ void Application::RenderMenuBar()
         if (ImGui::BeginMenu("Debug"))
         {
             if (ImGui::MenuItem("SpawnTerminalView")) {
-                // TODO
+                if(this->terminalView == nullptr)
+                {
+                    this->terminalView = new TerminalView();
+                }
             }
             ImGui::EndMenu();
         }
@@ -134,4 +136,8 @@ void Application::RenderMenuBar()
 
 void Application::render() {
     RenderMenuBar();
+
+    if(this->terminalView != nullptr) {
+        this->terminalView->render();
+    }
 }

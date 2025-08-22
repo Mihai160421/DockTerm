@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Window/Window.hpp"
+#include "TerminalView/TerminalView.hpp"
 
 class Application {
 public:
@@ -13,6 +14,7 @@ public:
 private:
     bool isRunning = false;
     Window* mainWindow = nullptr;
+    TerminalView* terminalView = nullptr;
 
     void cleanup();
 
