@@ -15,6 +15,8 @@ add_executable(DockTerm ${SRC_FILES} ${IMGUI_SOURCES})
 
 target_include_directories(DockTerm PRIVATE external/imgui/ external/imgui/backends)
 
+#Link Libraries
+
 target_link_libraries(DockTerm PRIVATE glfw)
 
 # OpenGL cross-platform
