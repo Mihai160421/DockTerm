@@ -98,6 +98,8 @@ void Application::cleanup() {
 
 void Application::RenderMenuBar()
 {
+    ImGuiIO& io = ImGui::GetIO();
+
     if (ImGui::BeginMainMenuBar())
     {
         if (ImGui::BeginMenu("File"))
@@ -130,6 +132,10 @@ void Application::RenderMenuBar()
             }
             ImGui::EndMenu();
         }
+
+        // Show fps on the right side of the menu bar
+        ImGui::SameLine(ImGui::GetWindowWidth() - 100); 
+        ImGui::Text("FPS: %.1f", io.Framerate);
 
         ImGui::EndMainMenuBar();
     }
