@@ -11,7 +11,6 @@ TerminalView::TerminalView()
     {
         screenBuffer = new ScreenBuffer(1000,1000);
 
-
         // Initialize screenBuffer with some content for testing 
         for(int r = 0; r < screenBuffer->getHeight(); r++) {
             for(int c = 0; c < screenBuffer->getWidth(); c++) {
