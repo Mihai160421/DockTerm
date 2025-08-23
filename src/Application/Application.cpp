@@ -40,7 +40,7 @@ void Application::run() {
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-    io.Fonts->AddFontFromFileTTF("assets/fonts/AgaveNerdFontMono-Regular.ttf", 16.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/RobotoMonoNerdFont-Regular.ttf", 20.0f);
     io.FontDefault = io.Fonts->Fonts.back();
 
     // Main loop
