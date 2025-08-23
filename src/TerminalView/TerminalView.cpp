@@ -49,11 +49,9 @@ void TerminalView::render() {
         screenBuffer->resize(cols, rows);
     }
 
-
-
     // Simulate a dummy scrollbar for the scroll buffer
     ImGui::Dummy(ImVec2(0, (this->scrollBuffer->GetRowsCount() + this->screenBuffer->getHeight()) * char_size.y)); // Leave space for scrollbar
-
+    ImGui::SetScrollHereY(1.0f);
 
     ImGui::SetCursorPosY(min.y);
     ImGui::SetCursorPosX(min.x);
