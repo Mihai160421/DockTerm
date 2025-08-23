@@ -9,15 +9,7 @@ TerminalView::TerminalView()
 {
     if(this->screenBuffer == nullptr)
     {
-        screenBuffer = new ScreenBuffer(1000,1000);
-
-        // Initialize screenBuffer with some content for testing 
-        for(int r = 0; r < screenBuffer->getHeight(); r++) {
-            for(int c = 0; c < screenBuffer->getWidth(); c++) {
-                Cell& cell = screenBuffer->at(r, c);
-                cell.character = (c % 10) + '0'; // Fill with digits 0-9
-            }
-        }
+        screenBuffer = new ScreenBuffer(0,0);
     }
 }
 
@@ -81,9 +73,10 @@ void TerminalView::RenderScreenBuffer()
 
     for(int r = 0; r < screenBuffer->getHeight(); r++) {
         for(int c = 0; c < screenBuffer->getWidth(); c++) {
+
             Cell& cell = screenBuffer->at(r, c);
             ImVec2 cell_pos = ImVec2(pos.x + c * char_size.x, pos.y + r * char_size.y);
-
+            
             // Draw background
             draw_list->AddRectFilled(cell_pos, ImVec2(cell_pos.x + char_size.x, cell_pos.y + char_size.y), cell.bgColor);
 
@@ -91,4 +84,10 @@ void TerminalView::RenderScreenBuffer()
             draw_list->AddText(io.Fonts->Fonts.back(), 16.0f, cell_pos, cell.fgColor, std::string(1, cell.character).c_str());
         }
     }
+
+    // Draw Cursor
+    ImVec2 cursorPos = screenBuffer->Getcursor();
+    ImVec2 cursor_screen_pos = ImVec2(pos.x + cursorPos.x * char_size.x, pos.y + cursorPos.y * char_size.y);
+    // Add fill rectangle for cursor
+    draw_list->AddRectFilled(cursor_screen_pos, ImVec2(cursor_screen_pos.x + char_size.x, cursor_screen_pos.y + char_size.y), IM_COL32(255, 255, 255, 255));
 }

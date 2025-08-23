@@ -15,8 +15,14 @@ public:
     int getWidth() const { return width; }
     int getHeight() const { return height; }
 
+    int GetcursorX() const { return static_cast<int>(cursor.x); }
+    int GetcursorY() const { return static_cast<int>(cursor.y); }
+    ImVec2 Getcursor() const { return cursor; }
+
 private:
     std::vector<Cell> buffer;
     int width = 0;
     int height = 0; 
+
+    ImVec2 cursor = ImVec2(0, 0);
 };
