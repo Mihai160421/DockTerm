@@ -1,5 +1,4 @@
 #include "TerminalView.hpp"
-
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -10,6 +9,11 @@ TerminalView::TerminalView()
     if(this->screenBuffer == nullptr)
     {
         screenBuffer = new ScreenBuffer(0,0);
+    }
+
+    if (this->scrollBuffer == nullptr)
+    {
+        scrollBuffer = new ScrollBuffer();
     }
 }
 
@@ -22,16 +26,7 @@ void TerminalView::render() {
     ImGui::SetNextWindowPos(ImVec2(0, menu_height));                           
     ImGui::SetNextWindowSize(window_size);
     
-    // Get size of a single character in the current font and calculate rows and columns that fit
-    ImVec2 char_size = io.Fonts->Fonts.back()->CalcTextSizeA(16.0f, FLT_MAX, 0.0f, "W");
-    int cols = static_cast<int>(window_size.x / char_size.x);
-    int rows = static_cast<int>(window_size.y / char_size.y);
-
-    if (cols != screenBuffer->getWidth() || rows != screenBuffer->getHeight())
-    {
-        screenBuffer->resize(cols, rows);
-    }
-
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 
     ImGui::Begin(name, NULL, ImGuiWindowFlags_NoCollapse 
                                     | ImGuiWindowFlags_NoResize 
@@ -39,10 +34,41 @@ void TerminalView::render() {
                                     | ImGuiWindowFlags_AlwaysAutoResize 
                                     | ImGuiWindowFlags_NoBringToFrontOnFocus);
 
+ 
+    ImVec2 min = ImGui::GetWindowContentRegionMin();
+    ImVec2 max = ImGui::GetWindowContentRegionMax();
+    ImVec2 size = ImVec2(max.x - min.x, max.y - min.y);
+
+    
+    ImVec2 char_size = io.Fonts->Fonts.back()->CalcTextSizeA(16.0f, FLT_MAX, 0.0f, "W");
+    int cols = static_cast<int>(size.x / char_size.x);
+    int rows = static_cast<int>(size.y / char_size.y);
+
+    if (cols != screenBuffer->getWidth() || rows != screenBuffer->getHeight())
+    {
+        screenBuffer->resize(cols, rows);
+    }
+
+
+
+    // Simulate a dummy scrollbar for the scroll buffer
+    ImGui::Dummy(ImVec2(0, (this->scrollBuffer->GetRowsCount() + this->screenBuffer->getHeight()) * char_size.y)); // Leave space for scrollbar
+
+
+    ImGui::SetCursorPosY(min.y);
+    ImGui::SetCursorPosX(min.x);
+   
+    RenderScrollBuffer();
+    ImGui::Separator();
+    
+    ImGui::SetCursorPosY(min.y);
+    ImGui::SetCursorPosX(min.x);
+   
     RenderScreenBuffer();
 
     ImGui::End();
 
+    ImGui::PopStyleVar();
 
     if(tDebugWindow) {
         renderDebugWindow();
@@ -59,7 +85,28 @@ void TerminalView::renderDebugWindow()
     ImGui::Text("TerminalView Debug Info");
     ImGui::Text("ScreenBuffer Size: %d cols x %d rows", screenBuffer->getWidth(), screenBuffer->getHeight());
 
+    //Button for pushing a text to scroll buffer
+    if(ImGui::Button("Push to ScrollBuffer"))
+    {
+        std::vector<Cell> row;
+        std::string text = "Hello World!";
+        for(char c : text)
+        {
+            Cell cell;
+            cell.character = c;
+            cell.fgColor = IM_COL32(255, 255, 255, 255);
+            cell.bgColor = IM_COL32(0, 0, 0, 255);
+            row.push_back(cell);
+        }
+        scrollBuffer->PushRow(row);
+    }
+
     ImGui::End();
+
+}
+
+void TerminalView::RenderScrollBuffer()
+{
 
 }
 

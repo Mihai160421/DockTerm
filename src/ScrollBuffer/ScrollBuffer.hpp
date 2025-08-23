@@ -10,8 +10,8 @@ class ScrollBuffer
 private:
     std::deque<std::vector<Cell>> buffer;
 public:
-    ScrollBuffer();
-    ~ScrollBuffer();
+    ScrollBuffer() = default;
+    ~ScrollBuffer() = default;
 
     void PushRow(const std::vector<Cell>& row);
     void Clear() { buffer.clear(); }

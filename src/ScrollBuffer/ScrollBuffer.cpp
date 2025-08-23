@@ -1,11 +1,5 @@
 #include "ScrollBuffer.hpp"
 
-ScrollBuffer::ScrollBuffer()
-{
-}
-ScrollBuffer::~ScrollBuffer()
-{
-}
 
 void ScrollBuffer::PushRow(const std::vector<Cell>& row)
 {
