@@ -11,6 +11,10 @@ public:
 
     void resize(int new_w, int new_h);
     Cell& at(int r, int c);
+
+    int getWidth() const { return width; }
+    int getHeight() const { return height; }
+
 private:
     std::vector<Cell> buffer;
     int width = 0;

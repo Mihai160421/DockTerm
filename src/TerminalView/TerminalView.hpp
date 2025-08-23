@@ -6,7 +6,13 @@
 class TerminalView {
 private:
     const char* name = "TerminalView";
-    ScreenBuffer* screenBuffer; 
+    ScreenBuffer* screenBuffer = nullptr;
+    bool tDebugWindow = true;
+
+    void renderDebugWindow();
+
+    void RenderScreenBuffer();
+
 public:
     TerminalView();
     ~TerminalView() = default;
